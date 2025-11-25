@@ -18,6 +18,10 @@ ENV/
 *.swp
 *.swo
 
+# Flask
+instance/
+.webassets-cache
+
 # OS
 .DS_Store
 Thumbs.db
