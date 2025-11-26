@@ -186,10 +186,20 @@ class SearchEngine:
             Image bytes or None if download fails
         """
         try:
-            response = self.session.get(
+            # Use separate headers for image downloads (especially for Wikipedia)
+            headers = {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+                'Accept': 'image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8',
+                'Accept-Language': 'en-US,en;q=0.9',
+                'Referer': 'https://www.google.com/',
+            }
+
+            response = requests.get(
                 url,
-                timeout=10,
-                stream=True
+                headers=headers,
+                timeout=15,
+                stream=True,
+                allow_redirects=True
             )
             response.raise_for_status()
 
@@ -202,5 +212,6 @@ class SearchEngine:
                     return None
 
             return content
-        except requests.exceptions.RequestException:
+        except requests.exceptions.RequestException as e:
+            print(f"Image download error: {str(e)}")
             return None

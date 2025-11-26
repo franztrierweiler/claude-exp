@@ -1,17 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Web Search with ASCII Art{% endblock %}</title>
+    <title>{% block title %}Recherche Web avec Art ASCII{% endblock %}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     {% block extra_head %}{% endblock %}
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>ASCII Web Search</h1>
-            <p class="tagline">Search the web with retro ASCII art results</p>
+            <h1>Recherche Web ASCII</h1>
+            <p class="tagline">Recherchez sur le web avec des résultats en art ASCII rétro</p>
         </header>
 
         <main>
@@ -19,7 +19,7 @@
         </main>
 
         <footer>
-            <p>Powered by DuckDuckGo | ASCII Art Conversion | No tracking, no ads</p>
+            <p>Propulsé par DuckDuckGo | Conversion en Art ASCII | Pas de suivi, pas de publicités</p>
         </footer>
     </div>
 

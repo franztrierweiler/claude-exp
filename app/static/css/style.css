@@ -44,7 +44,6 @@ header {
 header h1 {
     font-size: 3rem;
     color: var(--text-primary);
-    text-shadow: 0 0 10px var(--accent-color);
     margin-bottom: 10px;
     letter-spacing: 2px;
 }
@@ -86,10 +85,6 @@ header h1 {
     outline: none;
 }
 
-#searchQuery:focus {
-    box-shadow: 0 0 10px var(--accent-color);
-}
-
 button {
     padding: 15px 30px;
     font-family: var(--font-mono);
@@ -105,7 +100,6 @@ button {
 button:hover {
     background-color: var(--text-primary);
     color: var(--bg-dark);
-    box-shadow: 0 0 15px var(--accent-color);
 }
 
 button:disabled {
@@ -116,6 +110,16 @@ button:disabled {
 .secondary-button {
     padding: 10px 20px;
     font-size: 0.9rem;
+}
+
+.bebete-button {
+    background-color: var(--bg-light);
+    border-color: var(--accent-color);
+}
+
+.bebete-button:hover {
+    background-color: var(--accent-color);
+    color: var(--bg-dark);
 }
 
 .search-options {
@@ -186,7 +190,6 @@ button:disabled {
 
 #searchQueryDisplay {
     color: var(--accent-color);
-    text-shadow: 0 0 5px var(--accent-color);
 }
 
 /* Individual Result */
@@ -201,7 +204,6 @@ button:disabled {
 
 .result-item:hover {
     transform: translateX(5px);
-    box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
 }
 
 .result-header {
@@ -242,6 +244,23 @@ button:disabled {
     color: var(--text-secondary);
     margin-bottom: 15px;
     line-height: 1.8;
+}
+
+.traits-header {
+    color: var(--text-primary);
+    font-size: 1.1rem;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.result-traits {
+    color: var(--text-secondary);
+    font-style: italic;
+    line-height: 1.8;
+    padding: 15px;
+    background-color: var(--bg-dark);
+    border-left: 3px solid var(--accent-color);
+    margin-bottom: 15px;
 }
 
 .ascii-art-container {

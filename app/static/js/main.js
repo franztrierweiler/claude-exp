@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const results = document.getElementById('results');
     const searchQueryDisplay = document.getElementById('searchQueryDisplay');
     const newSearchButton = document.getElementById('newSearchButton');
+    const bebeteButton = document.getElementById('bebeteButton');
 
     // Handle form submission
     searchForm.addEventListener('submit', async function(e) {
@@ -21,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const query = searchQuery.value.trim();
         if (!query) {
-            showError('Please enter a search query');
+            showError('Veuillez entrer une recherche');
             return;
         }
 
@@ -51,11 +52,11 @@ document.addEventListener('DOMContentLoaded', function() {
             const data = await response.json();
 
             if (!response.ok) {
-                throw new Error(data.error || 'Search request failed');
+                throw new Error(data.error || 'La requête de recherche a échoué');
             }
 
             if (!data.success) {
-                throw new Error(data.error || 'Search was not successful');
+                throw new Error(data.error || 'La recherche a échoué');
             }
 
             // Display results
@@ -64,7 +65,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         } catch (error) {
             hideLoading();
-            showError(error.message || 'An error occurred while searching');
+            showError(error.message || 'Une erreur s\'est produite lors de la recherche');
         } finally {
             // Re-enable form
             searchButton.disabled = false;
@@ -82,10 +83,56 @@ document.addEventListener('DOMContentLoaded', function() {
         document.querySelector('.search-container').scrollIntoView({ behavior: 'smooth' });
     });
 
+    // Handle Bébête Show button
+    bebeteButton.addEventListener('click', async function() {
+        console.log('Bébête Show button clicked');
+
+        // Reset UI
+        hideError();
+        hideResults();
+        showLoading();
+
+        // Disable button
+        bebeteButton.disabled = true;
+
+        try {
+            // Make request to bebete-show endpoint
+            console.log('Fetching /bebete-show...');
+            const response = await fetch('/bebete-show', {
+                method: 'GET'
+            });
+
+            console.log('Response status:', response.status);
+            const data = await response.json();
+            console.log('Response data:', data);
+
+            if (!response.ok) {
+                throw new Error(data.error || 'La requête Bébête Show a échoué');
+            }
+
+            if (!data.success) {
+                throw new Error(data.error || 'Bébête Show a échoué');
+            }
+
+            // Display result
+            hideLoading();
+            console.log('Displaying result...');
+            displayBebeteResult(data);
+
+        } catch (error) {
+            console.error('Error in Bébête Show:', error);
+            hideLoading();
+            showError(error.message || 'Une erreur s\'est produite lors du Bébête Show');
+        } finally {
+            // Re-enable button
+            bebeteButton.disabled = false;
+        }
+    });
+
     // Display results
     function displayResults(data) {
         if (!data.results || data.results.length === 0) {
-            showError(data.message || 'No results found');
+            showError(data.message || 'Aucun résultat trouvé');
             return;
         }
 
@@ -149,7 +196,7 @@ document.addEventListener('DOMContentLoaded', function() {
         } else if (result.image_url) {
             const noImage = document.createElement('p');
             noImage.className = 'no-image';
-            noImage.textContent = '[Image could not be converted to ASCII]';
+            noImage.textContent = '[L\'image n\'a pas pu être convertie en ASCII]';
             div.appendChild(noImage);
         }
 
@@ -181,6 +228,46 @@ document.addEventListener('DOMContentLoaded', function() {
     // Hide results
     function hideResults() {
         resultsContainer.style.display = 'none';
+    }
+
+    // Display Bébête Show result
+    function displayBebeteResult(data) {
+        console.log('displayBebeteResult called with:', data);
+
+        searchQueryDisplay.textContent = data.name;
+        results.innerHTML = '';
+
+        const resultElement = document.createElement('div');
+        resultElement.className = 'result-item';
+
+        const title = document.createElement('h3');
+        title.className = 'result-title';
+        title.textContent = data.name;
+
+        const description = document.createElement('p');
+        description.className = 'result-snippet';
+        description.textContent = data.description;
+
+        resultElement.appendChild(title);
+        resultElement.appendChild(description);
+
+        // Add character traits
+        if (data.traits) {
+            const traitsHeader = document.createElement('h4');
+            traitsHeader.className = 'traits-header';
+            traitsHeader.textContent = 'Traits de caractère :';
+
+            const traits = document.createElement('p');
+            traits.className = 'result-traits';
+            traits.textContent = data.traits;
+
+            resultElement.appendChild(traitsHeader);
+            resultElement.appendChild(traits);
+        }
+
+        results.appendChild(resultElement);
+        resultsContainer.style.display = 'block';
+        resultsContainer.scrollIntoView({ behavior: 'smooth' });
     }
 
     // Focus on search input on load

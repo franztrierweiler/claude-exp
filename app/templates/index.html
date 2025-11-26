@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}ASCII Web Search - Home{% endblock %}
+{% block title %}Recherche Web ASCII - Accueil{% endblock %}
 
 {% block content %}
 <div class="search-container">
@@ -10,17 +10,20 @@
                 type="text"
                 id="searchQuery"
                 name="query"
-                placeholder="Enter your search query..."
+                placeholder="Entrez votre recherche..."
                 required
                 autocomplete="off"
             >
             <button type="submit" id="searchButton">
-                <span class="button-text">Search</span>
-                <span class="loading-spinner" style="display: none;">Searching...</span>
+                <span class="button-text">Rechercher</span>
+                <span class="loading-spinner" style="display: none;">Recherche en cours...</span>
+            </button>
+            <button type="button" id="bebeteButton" class="bebete-button">
+                Bébête Show
             </button>
         </div>
         <div class="search-options">
-            <label for="numResults">Results:</label>
+            <label for="numResults">Résultats :</label>
             <select id="numResults" name="num_results">
                 <option value="3">3</option>
                 <option value="5" selected>5</option>
@@ -39,28 +42,28 @@
   ____) | |____| | \ \| |_| | \ \| | | |_| |_| |\  | |__| |
  |_____/|______|_|  \_\_____|_|  \_\_| |_|_____|_| \_|\_____|
             </pre>
-            <p>Fetching search results...</p>
+            <p>Récupération des résultats...</p>
         </div>
     </div>
 </div>
 
 <div id="resultsContainer" class="results-container" style="display: none;">
     <div class="results-header">
-        <h2>Search Results for: <span id="searchQueryDisplay"></span></h2>
-        <button id="newSearchButton" class="secondary-button">New Search</button>
+        <h2>Résultats de recherche pour : <span id="searchQueryDisplay"></span></h2>
+        <button id="newSearchButton" class="secondary-button">Nouvelle recherche</button>
     </div>
     <div id="results"></div>
 </div>
 
 <div class="info-section">
-    <h3>About This App</h3>
+    <h3>À propos de cette application</h3>
     <div class="info-content">
-        <p><strong>ASCII Web Search</strong> combines the power of web search with retro ASCII art visualization.</p>
+        <p><strong>Recherche Web ASCII</strong> combine la puissance de la recherche web avec une visualisation en art ASCII rétro.</p>
         <ul>
-            <li>Search powered by DuckDuckGo</li>
-            <li>Images converted to ASCII art</li>
-            <li>Clean, ad-free results</li>
-            <li>Limited to 5 results for optimal ASCII display</li>
+            <li>Recherche propulsée par DuckDuckGo</li>
+            <li>Images converties en art ASCII</li>
+            <li>Résultats propres, sans publicité</li>
+            <li>Limité à 5 résultats pour un affichage ASCII optimal</li>
         </ul>
     </div>
 </div>
